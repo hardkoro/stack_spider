@@ -1,8 +1,8 @@
-from scrapy import Spider
-from scrapy.selector import Selector
-from scrapy.crawler import CrawlerProcess
-
 import re
+
+from scrapy import Spider
+from scrapy.crawler import CrawlerProcess
+from scrapy.selector import Selector
 
 from stack.items import StackItem
 

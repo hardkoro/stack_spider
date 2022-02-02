@@ -1,10 +1,9 @@
-import pymongo
+from dataclasses import asdict
 
+import pymongo
 from scrapy.utils.project import get_project_settings
 
-from dataclasses import asdict
 from .items import StackItem
-
 
 settings = get_project_settings()
 
