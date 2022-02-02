@@ -1,8 +1,9 @@
-import logging
 import pymongo
 
-from scrapy.exceptions import DropItem
 from scrapy.utils.project import get_project_settings
+
+from dataclasses import asdict
+from .items import StackItem
 
 
 settings = get_project_settings()
@@ -18,12 +19,10 @@ class MongoDBPipeline(object):
         self.collection = db[settings.get('MONGODB_COLLECTION')]
 
     def process_item(self, item, spider):
-        valid = True
-        for data in item:
-            if not data:
-                valid = False
-                raise DropItem(f'Missing {data}!')
-        if valid:
-            self.collection.insert_one(dict(item))
-            logging.debug('Question added to MongoDB database!')
+        if isinstance(item, StackItem):
+            self.collection.replace_one(
+                {'_id': item._id},
+                asdict(item),
+                upsert=True
+            )
         return item

@@ -1,6 +1,10 @@
-from scrapy.item import Item, Field
+from dataclasses import dataclass
 
 
-class StackItem(Item):
-    title = Field()
-    url = Field()
+@dataclass
+class StackItem:
+    _id: str
+    author: str
+    title: str
+    url: str
+    published: str
